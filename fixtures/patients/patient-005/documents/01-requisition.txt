@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P005-D01
+Created: 2026-10-06T15:17:00Z
+Patient ID: SYN-005
+Patient name: Emery Example
+Date of birth: 1995-08-17
+Case ID: CASE-005
+Ordering provider: Dr. Avery Demo
+Clinic: Example Clinic Central
+Requested panel: [blank]
+Specimen type: Saliva
+Collection date: 2026-10-05
+Provider signature: Dr. Avery Demo, signed 2026-10-06

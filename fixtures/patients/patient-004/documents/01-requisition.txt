@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P004-D01
+Created: 2026-10-05T18:23:00Z
+Patient ID: SYN-004
+Patient name: Drew Example
+Date of birth: 1982-04-09
+Case ID: CASE-004
+Ordering provider: Dr. Taylor Demo
+Clinic: Example Clinic South
+Requested panel: DEMO-A
+Specimen type: Blood
+Collection date: 2026-10-04
+Provider signature: Dr. Taylor Demo, signed 2026-10-05

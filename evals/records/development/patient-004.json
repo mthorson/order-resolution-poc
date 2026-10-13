@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "741247af-83a5-4cfd-a04a-05e73aa984a6",
+    "caseId": "CASE-004",
+    "snapshotId": "28a72e2a8594ebd54b56b39f2fe4d6ecd9e8171cc6d4a3a491cf2f05157e5c03",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:28:10.276Z",
+    "durationMs": 6210,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6349,
+      "outputTokens": 1835
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-004",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-004"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Patient ID: SYN-004"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Drew Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Drew Example"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Patient name: Drew Example"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-004",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-004"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Case ID: CASE-004"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Taylor Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Taylor Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic South",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic South"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-04",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Collection date: 2026-10-04"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Collection date: 2026-10-04"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Taylor Demo, signed 2026-10-05",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Taylor Demo, signed 2026-10-05"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "kind": "conflicting",
+      "field": "date_of_birth",
+      "ruleId": "R4",
+      "candidates": [
+        {
+          "value": "1982-04-09",
+          "evidence": [
+            {
+              "sourceId": "documents/01-requisition.txt",
+              "quote": "Date of birth: 1982-04-09"
+            }
+          ]
+        },
+        {
+          "value": "1982-04-19",
+          "evidence": [
+            {
+              "sourceId": "documents/02-specimen-record.txt",
+              "quote": "Date of birth: 1982-04-19"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "conflicting",
+      "field": "requested_panel",
+      "ruleId": "R4",
+      "candidates": [
+        {
+          "value": "DEMO-A",
+          "evidence": [
+            {
+              "sourceId": "documents/01-requisition.txt",
+              "quote": "Requested panel: DEMO-A"
+            }
+          ]
+        },
+        {
+          "value": "DEMO-B",
+          "evidence": [
+            {
+              "sourceId": "correspondence/01-provider-panel-message.txt",
+              "quote": "Please run DEMO-B."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-provider-panel-message.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-provider-panel-message.txt",
+          "quote": "Case ID: CASE-004"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-004"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-004"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/02-specimen-record.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Case ID: CASE-004"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Patient ID: SYN-004"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": {
+    "subject": "CASE-004: records reconciliation and panel confirmation needed",
+    "body": "Hello Dr. Demo,\n\nWe are reviewing CASE-004 (Patient ID SYN-004) and need the following resolved before processing:\n\n1. Date of birth: the signed requisition lists 1982-04-09, while the specimen record lists 1982-04-19. Please reconcile the records and confirm the correct date of birth.\n\n2. Requested panel: the signed requisition lists DEMO-A, while your message requests DEMO-B. Please submit a corrected signed requisition confirming your intended panel. Email confirmation alone is not sufficient.\n\nThank you.",
+    "addressesFields": [
+      "date_of_birth",
+      "requested_panel"
+    ]
+  },
+  "status": "needs_clarification",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

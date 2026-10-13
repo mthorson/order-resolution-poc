@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P001-D01
+Created: 2026-10-01T15:23:00Z
+Patient ID: SYN-001
+Patient name: Alex Example
+Date of birth: 1985-02-14
+Case ID: CASE-001
+Ordering provider: Dr. Morgan Demo
+Clinic: Example Clinic North
+Requested panel: DEMO-A
+Specimen type: Blood
+Collection date: 2026-09-30
+Provider signature: Dr. Morgan Demo, signed 2026-10-01

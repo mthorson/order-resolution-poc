@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "evaluation.v1",
+  "evalId": "1bc4ed3a-03bd-48ae-8f13-69e078b842b9",
+  "createdAt": "2026-10-12T23:31:10.702Z",
+  "dataset": "final",
+  "caseRoot": "evals/final/patients",
+  "mode": "live",
+  "rulesVersion": "demo-order-completeness-v1",
+  "expectedOutcomesSha256": "134b0219c530d1a6678668c1a85219c1bf56a671ede1b0e4231d1619b1e8fd96",
+  "model": "us.anthropic.claude-haiku-5-5",
+  "region": "us-west-2",
+  "automatedGate": "passed",
+  "humanReviewGate": "pending",
+  "stopped": false,
+  "totals": {
+    "expected": 2,
+    "evaluated": 2,
+    "automatedPassed": 2,
+    "baselinePassed": 0
+  },
+  "notRun": [],
+  "cases": [
+    {
+      "patientFolder": "patient-201",
+      "snapshotId": "f0764841b60e8f96e4384718285a2a4049ee01361c47f76fb3121d39d7dbb9fd",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": false,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.372405999999998
+      },
+      "analysis": {
+        "passed": true,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-201.json",
+        "durationMs": 4149,
+        "usage": {
+          "inputTokens": 5845,
+          "outputTokens": 1011
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative facts and reconcile conflicts without choosing an identity value."
+        ],
+        "reviewerSeconds": null
+      }
+    },
+    {
+      "patientFolder": "patient-202",
+      "snapshotId": "6114c3c2bd5fa6c810143badea3a8d81294b28487ebb6542ceb965a8262a38b2",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": true,
+          "conflictingFields": false,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.11721899999974994
+      },
+      "analysis": {
+        "passed": true,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-202.json",
+        "durationMs": 4877,
+        "usage": {
+          "inputTokens": 6064,
+          "outputTokens": 1424
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative facts and reconcile conflicts without choosing an identity value."
+        ],
+        "reviewerSeconds": null
+      }
+    }
+  ]
+}

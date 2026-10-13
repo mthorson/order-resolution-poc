@@ -1,0 +1,490 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Single-instance synthetic review demo with HTTPS and persistent storage",
+  "Parameters": {
+    "Vpc": {
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "Subnet": {
+      "Type": "AWS::EC2::Subnet::Id"
+    },
+    "Ami": {
+      "Type": "AWS::EC2::Image::Id"
+    },
+    "CloudFrontPrefixList": {
+      "Type": "String"
+    },
+    "Issuer": {
+      "Type": "String"
+    },
+    "ClientId": {
+      "Type": "String"
+    },
+    "AccessPolicy": {
+      "Type": "String",
+      "NoEcho": true
+    },
+    "ImageTag": {
+      "Type": "String",
+      "Default": "poc-v6"
+    }
+  },
+  "Resources": {
+    "Repository": {
+      "Type": "AWS::ECR::Repository",
+      "Properties": {
+        "RepositoryName": "order-resolution-poc",
+        "ImageScanningConfiguration": {
+          "ScanOnPush": true
+        },
+        "ImageTagMutability": "IMMUTABLE",
+        "LifecyclePolicy": {
+          "LifecyclePolicyText": "{\"rules\": [{\"rulePriority\": 1, \"description\": \"Keep ten images\", \"selection\": {\"tagStatus\": \"any\", \"countType\": \"imageCountMoreThan\", \"countNumber\": 10}, \"action\": {\"type\": \"expire\"}}]}"
+        }
+      }
+    },
+    "Logs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/order-review/demo",
+        "RetentionInDays": 7
+      }
+    },
+    "Backups": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "IgnorePublicAcls": true,
+          "BlockPublicPolicy": true,
+          "RestrictPublicBuckets": true
+        },
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "Id": "ExpireOldBackups",
+              "Status": "Enabled",
+              "ExpirationInDays": 30,
+              "NoncurrentVersionExpiration": {
+                "NoncurrentDays": 7
+              }
+            }
+          ]
+        }
+      },
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain"
+    },
+    "Assignments": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/order-review-poc/access",
+        "Type": "String",
+        "Value": {
+          "Ref": "AccessPolicy"
+        },
+        "Description": "Explicit synthetic case assignments"
+      }
+    },
+    "HostRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ],
+        "Policies": [
+          {
+            "PolicyName": "DemoRuntime",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ecr:GetAuthorizationToken"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ecr:BatchGetImage",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:BatchCheckLayerAvailability"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "Repository",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/order-review/demo:*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ssm:GetParameter"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/order-review-poc/access"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/order-review-poc/image-tag"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "Backups",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::Sub": "${Backups.Arn}/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "bedrock:InvokeModel"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-5-5*"
+                    },
+                    {
+                      "Fn::Sub": "arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:inference-profile/us.anthropic.claude-haiku-5-5"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "HostProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "HostRole"
+          }
+        ]
+      }
+    },
+    "Ingress": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "HTTP origin accepts only CloudFront origin servers; no SSH",
+        "VpcId": {
+          "Ref": "Vpc"
+        },
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 3000,
+            "ToPort": 3000,
+            "SourcePrefixListId": {
+              "Ref": "CloudFrontPrefixList"
+            }
+          }
+        ]
+      }
+    },
+    "Address": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "Distribution": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Enabled": true,
+          "Comment": "Synthetic order review demo",
+          "PriceClass": "PriceClass_100",
+          "HttpVersion": "http2",
+          "Origins": [
+            {
+              "Id": "app",
+              "DomainName": {
+                "Fn::Sub": [
+                  "ec2-${DashedAddress}.${AWS::Region}.compute.amazonaws.com",
+                  {
+                    "DashedAddress": {
+                      "Fn::Join": [
+                        "-",
+                        {
+                          "Fn::Split": [
+                            ".",
+                            {
+                              "Ref": "Address"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "CustomOriginConfig": {
+                "HTTPPort": 3000,
+                "HTTPSPort": 443,
+                "OriginProtocolPolicy": "http-only",
+                "OriginReadTimeout": 30,
+                "OriginKeepaliveTimeout": 5
+              }
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "TargetOriginId": "app",
+            "ViewerProtocolPolicy": "redirect-to-https",
+            "AllowedMethods": [
+              "GET",
+              "HEAD",
+              "OPTIONS",
+              "PUT",
+              "PATCH",
+              "POST",
+              "DELETE"
+            ],
+            "CachedMethods": [
+              "GET",
+              "HEAD"
+            ],
+            "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+            "OriginRequestPolicyId": "216adef6-5c7f-47e4-b989-5492eafa07d3",
+            "Compress": true
+          },
+          "ViewerCertificate": {
+            "CloudFrontDefaultCertificate": true
+          }
+        }
+      }
+    },
+    "Host": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": {
+          "Ref": "Ami"
+        },
+        "InstanceType": "t3.small",
+        "IamInstanceProfile": {
+          "Ref": "HostProfile"
+        },
+        "SubnetId": {
+          "Ref": "Subnet"
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "Ingress"
+          }
+        ],
+        "MetadataOptions": {
+          "HttpTokens": "required",
+          "HttpPutResponseHopLimit": 2
+        },
+        "CreditSpecification": {
+          "CPUCredits": "standard"
+        },
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "VolumeSize": 16,
+              "VolumeType": "gp3",
+              "Encrypted": true,
+              "DeleteOnTermination": false
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "order-review-demo"
+          },
+          {
+            "Key": "Project",
+            "Value": "order-resolution-poc"
+          },
+          {
+            "Key": "Data",
+            "Value": "synthetic"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Sub": "#!/bin/bash\nset -euo pipefail\numask 077\ndnf install -y docker\nsystemctl enable --now docker\nmkdir -p /var/lib/order-review/config /var/lib/order-review/data /run/order-review-docker\nchown 1000:1000 /var/lib/order-review/data\ncat > /etc/order-review.env <<'ENV'\nOIDC_ISSUER=${Issuer}\nOIDC_CLIENT_ID=${ClientId}\nAWS_REGION=${AWS::Region}\nENV\ncat > /usr/local/bin/order-review-start <<'SCRIPT'\n#!/bin/bash\nset -euo pipefail\numask 077\nmkdir -p /run/order-review-docker\naws ssm get-parameter --name /order-review-poc/access --region ${AWS::Region} --query Parameter.Value --output text > /var/lib/order-review/config/access.json\nchown 1000:1000 /var/lib/order-review/config/access.json\nreview_image_tag=$(aws ssm get-parameter --name /order-review-poc/image-tag --region ${AWS::Region} --query Parameter.Value --output text)\naws ecr get-login-password --region ${AWS::Region} | docker --config /run/order-review-docker login --username AWS --password-stdin ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com\ndocker --config /run/order-review-docker pull ${Repository.RepositoryUri}:$review_image_tag\nexec docker run --rm --name order-review --hostname order-review --init --read-only --tmpfs /tmp:noexec,nosuid,size=32m --cap-drop ALL --security-opt no-new-privileges --env-file /etc/order-review.env -p 3000:3000 --mount type=bind,source=/var/lib/order-review/data,target=/app/runs --mount type=bind,source=/var/lib/order-review/config/access.json,target=/app/config/access.json,readonly --log-driver awslogs --log-opt awslogs-region=${AWS::Region} --log-opt awslogs-group=/order-review/demo --log-opt awslogs-stream=app ${Repository.RepositoryUri}:$review_image_tag node src/serve-cli.ts --demo --auth oidc --access /app/config/access.json --host 0.0.0.0 --origin https://${Distribution.DomainName} --jobs bedrock --model us.anthropic.claude-haiku-5-5 --region ${AWS::Region}\nSCRIPT\nchmod 700 /usr/local/bin/order-review-start\ncat > /etc/systemd/system/order-review.service <<'SERVICE'\n[Unit]\nDescription=Synthetic order review demo\nAfter=docker.service network-online.target\nWants=network-online.target\nRequires=docker.service\n[Service]\nType=simple\nExecStartPre=-/usr/bin/docker rm -f order-review\nExecStart=/usr/local/bin/order-review-start\nExecStop=/usr/bin/docker stop -t 30 order-review\nRestart=always\nRestartSec=20\nTimeoutStopSec=40\n[Install]\nWantedBy=multi-user.target\nSERVICE\nsystemctl daemon-reload\nsystemctl enable --now order-review.service\n"
+          }
+        }
+      }
+    },
+    "AddressBinding": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "InstanceId": {
+          "Ref": "Host"
+        },
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "Address",
+            "AllocationId"
+          ]
+        }
+      }
+    },
+    "FailedJobs": {
+      "Type": "AWS::Logs::MetricFilter",
+      "Properties": {
+        "LogGroupName": {
+          "Ref": "Logs"
+        },
+        "FilterPattern": "{ $.event = \"job_finished\" && $.status = \"failed\" }",
+        "MetricTransformations": [
+          {
+            "MetricName": "FailedJobs",
+            "MetricNamespace": "OrderReviewDemo",
+            "MetricValue": "1",
+            "DefaultValue": 0
+          }
+        ]
+      }
+    },
+    "FailureAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "order-review-repeated-job-failures",
+        "AlarmDescription": "Three job failures in an hour; inspect the app and recovery guide",
+        "Namespace": "OrderReviewDemo",
+        "MetricName": "FailedJobs",
+        "Statistic": "Sum",
+        "Period": 3600,
+        "EvaluationPeriods": 1,
+        "Threshold": 3,
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "TreatMissingData": "notBreaching"
+      }
+    },
+    "CpuAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "order-review-high-cpu",
+        "AlarmDescription": "Sustained CPU pressure in the demo instance",
+        "Namespace": "AWS/EC2",
+        "MetricName": "CPUUtilization",
+        "Dimensions": [
+          {
+            "Name": "InstanceId",
+            "Value": {
+              "Ref": "Host"
+            }
+          }
+        ],
+        "Statistic": "Average",
+        "Period": 300,
+        "EvaluationPeriods": 3,
+        "Threshold": 85,
+        "ComparisonOperator": "GreaterThanThreshold",
+        "TreatMissingData": "notBreaching"
+      }
+    },
+    "Budget": {
+      "Type": "AWS::Budgets::Budget",
+      "Properties": {
+        "Budget": {
+          "BudgetName": "order-review-poc-monthly",
+          "BudgetType": "COST",
+          "TimeUnit": "MONTHLY",
+          "BudgetLimit": {
+            "Amount": 50,
+            "Unit": "USD"
+          }
+        }
+      }
+    },
+    "ImageVersion": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/order-review-poc/image-tag",
+        "Type": "String",
+        "Value": {
+          "Ref": "ImageTag"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AppUrl": {
+      "Value": {
+        "Fn::Sub": "https://${Distribution.DomainName}"
+      }
+    },
+    "InstanceId": {
+      "Value": {
+        "Ref": "Host"
+      }
+    },
+    "RepositoryUri": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Repository",
+          "RepositoryUri"
+        ]
+      }
+    },
+    "BackupBucket": {
+      "Value": {
+        "Ref": "Backups"
+      }
+    }
+  }
+}

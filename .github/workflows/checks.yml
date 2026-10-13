@@ -1,0 +1,39 @@
+name: Check the PoC
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 26.11.1
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run verify:records
+      - run: npm audit --audit-level=high
+      - run: npm run build:ui
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:ui
+      - run: npm run evaluate -- --playback
+      - run: npm run evaluate -- --dataset heldout --playback
+      - run: docker build -t order-resolution-poc:ci .
+      - uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8 # v0.36.0
+        with:
+          image-ref: order-resolution-poc:ci
+          format: table
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'

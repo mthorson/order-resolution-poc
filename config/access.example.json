@@ -1,0 +1,10 @@
+{
+  "assignments": [
+    {
+      "issuer": "https://YOUR_OIDC_ISSUER",
+      "subject": "YOUR_USER_SUBJECT_ID",
+      "role": "reviewer",
+      "caseIds": ["CASE-001", "CASE-002", "CASE-003", "CASE-004", "CASE-005"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Message ID: H104-M01
+Sent: 2026-10-08T19:43:00Z
+Case ID: CASE-104
+Patient ID: SYN-104
+From: quinn.demo@clinic.example
+The DOB in our specimen log is 1975-02-11. Please reconcile the mismatch with the signed requisition.

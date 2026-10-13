@@ -1,0 +1,170 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Standalone sign-in for the synthetic order review demo",
+  "Resources": {
+    "UserPool": {
+      "Type": "AWS::Cognito::UserPool",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "UserPoolName": "order-review-poc",
+        "UserPoolTier": "LITE",
+        "AdminCreateUserConfig": {
+          "AllowAdminCreateUserOnly": true
+        },
+        "UsernameConfiguration": {
+          "CaseSensitive": false
+        },
+        "Policies": {
+          "PasswordPolicy": {
+            "MinimumLength": 14,
+            "RequireLowercase": true,
+            "RequireUppercase": true,
+            "RequireNumbers": true,
+            "RequireSymbols": true,
+            "TemporaryPasswordValidityDays": 7
+          }
+        },
+        "MfaConfiguration": "OPTIONAL",
+        "EnabledMfas": [
+          "SOFTWARE_TOKEN_MFA"
+        ],
+        "AccountRecoverySetting": {
+          "RecoveryMechanisms": [
+            {
+              "Name": "admin_only",
+              "Priority": 1
+            }
+          ]
+        },
+        "UserPoolTags": {
+          "Project": "order-resolution-poc",
+          "Data": "synthetic"
+        }
+      }
+    },
+    "Client": {
+      "Type": "AWS::Cognito::UserPoolClient",
+      "Properties": {
+        "UserPoolId": {
+          "Ref": "UserPool"
+        },
+        "ClientName": "order-review-local",
+        "GenerateSecret": false,
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthFlows": [
+          "code"
+        ],
+        "AllowedOAuthScopes": [
+          "openid",
+          "profile"
+        ],
+        "SupportedIdentityProviders": [
+          "COGNITO"
+        ],
+        "CallbackURLs": {
+          "Fn::If": [
+            "HasPublicOrigin",
+            [
+              "http://localhost:3000/auth/callback",
+              {
+                "Fn::Sub": "${PublicOrigin}/auth/callback"
+              }
+            ],
+            [
+              "http://localhost:3000/auth/callback"
+            ]
+          ]
+        },
+        "LogoutURLs": {
+          "Fn::If": [
+            "HasPublicOrigin",
+            [
+              "http://localhost:3000/",
+              {
+                "Fn::Sub": "${PublicOrigin}/"
+              }
+            ],
+            [
+              "http://localhost:3000/"
+            ]
+          ]
+        },
+        "ExplicitAuthFlows": [
+          "ALLOW_REFRESH_TOKEN_AUTH"
+        ],
+        "PreventUserExistenceErrors": "ENABLED",
+        "EnableTokenRevocation": true,
+        "AccessTokenValidity": 15,
+        "IdTokenValidity": 15,
+        "RefreshTokenValidity": 1,
+        "TokenValidityUnits": {
+          "AccessToken": "minutes",
+          "IdToken": "minutes",
+          "RefreshToken": "hours"
+        },
+        "ReadAttributes": [
+          "name"
+        ],
+        "WriteAttributes": [
+          "name"
+        ]
+      }
+    },
+    "Domain": {
+      "Type": "AWS::Cognito::UserPoolDomain",
+      "Properties": {
+        "UserPoolId": {
+          "Ref": "UserPool"
+        },
+        "Domain": {
+          "Fn::Sub": "order-review-poc-${AWS::AccountId}-${AWS::Region}"
+        },
+        "ManagedLoginVersion": 1
+      }
+    }
+  },
+  "Outputs": {
+    "UserPoolId": {
+      "Value": {
+        "Ref": "UserPool"
+      }
+    },
+    "ClientId": {
+      "Value": {
+        "Ref": "Client"
+      }
+    },
+    "Issuer": {
+      "Value": {
+        "Fn::Sub": "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+      }
+    },
+    "LoginDomain": {
+      "Value": {
+        "Fn::Sub": "https://${Domain}.auth.${AWS::Region}.amazoncognito.com"
+      }
+    }
+  },
+  "Parameters": {
+    "PublicOrigin": {
+      "Type": "String",
+      "Default": "",
+      "Description": "Optional deployed HTTPS application origin"
+    }
+  },
+  "Conditions": {
+    "HasPublicOrigin": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "PublicOrigin"
+            },
+            ""
+          ]
+        }
+      ]
+    }
+  }
+}

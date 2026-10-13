@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P004-D02
+Created: 2026-10-05T19:07:00Z
+Case ID: CASE-004
+Patient ID: SYN-004
+Patient name: Drew Example
+Date of birth: 1982-04-19
+Specimen type: Blood
+Collection date: 2026-10-04

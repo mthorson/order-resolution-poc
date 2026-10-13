@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: H104-D01
+Created: 2026-10-07T16:27:00Z
+Case ID: CASE-104
+Patient ID: SYN-104
+Patient name: Indigo Example
+Date of birth: 1975-02-01
+Ordering provider: Dr. Quinn Demo
+Clinic: Example Clinic West
+Requested panel: DEMO-A
+Specimen type: Blood
+Collection date: 2026-10-06
+Provider signature: Dr. Quinn Demo, signed 2026-10-07

@@ -1,0 +1,15 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: F201-D01
+Created: 2026-10-09T21:26:00Z
+Case ID: CASE-201
+Patient ID: SYN-201
+Patient name: Kai Example
+Date of birth: 1980-07-14
+Ordering provider: Dr. Rowan Demo
+Clinic: Example Clinic East
+Requested panel: [blank]
+Specimen type: Blood
+Collection date: [blank]
+Provider signature: Dr. Rowan Demo, signed 2026-10-09
+Signed clinical notes: The ordering provider selected DEMO-A for this patient's signed order. Blood draw was completed on 2026-10-09.

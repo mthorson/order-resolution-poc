@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Message ID: P001-M01
+Sent: 2026-10-01T18:12:00Z
+From: morgan.demo@clinic.example
+To: orders@lab.example
+Subject: CASE-001 documents
+Case ID: CASE-001
+The signed requisition and specimen record are attached. Please acknowledge receipt.
+Attachments: documents/01-requisition.txt; documents/02-specimen-record.txt

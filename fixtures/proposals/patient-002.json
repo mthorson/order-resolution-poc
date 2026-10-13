@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "model-proposal.v1",
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-002",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-002"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Blair Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Blair Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1990-06-22",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1990-06-22"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-002",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Jordan Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Jordan Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic East",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic East"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-B",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-B"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Saliva",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Saliva"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "kind": "missing",
+      "field": "collection_date",
+      "ruleId": "R2",
+      "examinedSourceIds": [
+        "correspondence/01-provider-message.txt",
+        "documents/01-requisition.txt",
+        "documents/02-receipt-note.txt"
+      ]
+    },
+    {
+      "kind": "missing",
+      "field": "provider_signature",
+      "ruleId": "R2",
+      "examinedSourceIds": [
+        "correspondence/01-provider-message.txt",
+        "documents/01-requisition.txt",
+        "documents/02-receipt-note.txt"
+      ]
+    }
+  ],
+  "corrections": [],
+  "warnings": [],
+  "followUpDraft": {
+    "subject": "Order clarification",
+    "body": "Please provide a signed requisition. Please provide the collection date.",
+    "addressesFields": [
+      "collection_date",
+      "provider_signature"
+    ]
+  },
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-provider-message.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-provider-message.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/02-receipt-note.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "documents/02-receipt-note.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "deb46440-eee8-44ae-bc4f-cec8ef447eed",
+    "caseId": "CASE-201",
+    "snapshotId": "f0764841b60e8f96e4384718285a2a4049ee01361c47f76fb3121d39d7dbb9fd",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:31:01.483Z",
+    "durationMs": 4149,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 5845,
+      "outputTokens": 1011
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-201",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-201"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Kai Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Kai Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1980-07-14",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1980-07-14"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-201",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-201"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Rowan Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Rowan Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic East",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic East"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-A",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "The ordering provider selected DEMO-A for this patient's signed order."
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-09",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Blood draw was completed on 2026-10-09."
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Rowan Demo, signed 2026-10-09",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Rowan Demo, signed 2026-10-09"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-201"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-201"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": null,
+  "status": "ready_for_review",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

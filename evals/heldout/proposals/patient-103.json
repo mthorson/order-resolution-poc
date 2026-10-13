@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "model-proposal.v1",
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-103",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-103"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Harper Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Harper Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1975-02-01",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1975-02-01"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-103",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-103"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Quinn Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Quinn Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic West",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic West"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-06",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Collection date: 2026-10-06"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Quinn Demo, signed 2026-10-07",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Quinn Demo, signed 2026-10-07"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "kind": "conflicting",
+      "field": "requested_panel",
+      "ruleId": "R4",
+      "candidates": [
+        {
+          "value": "DEMO-A",
+          "evidence": [
+            {
+              "sourceId": "documents/01-requisition.txt",
+              "quote": "Requested panel: DEMO-A"
+            }
+          ]
+        },
+        {
+          "value": "DEMO-B",
+          "evidence": [
+            {
+              "sourceId": "correspondence/01-clarification.txt",
+              "quote": "We now request DEMO-B instead of the requisition's DEMO-A."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "corrections": [],
+  "warnings": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-clarification.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-clarification.txt",
+          "quote": "Case ID: CASE-103"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-103"
+        }
+      ]
+    }
+  ],
+  "followUpDraft": {
+    "subject": "Order clarification",
+    "body": "Please provide a corrected signed requisition confirming the intended panel.",
+    "addressesFields": [
+      "requested_panel"
+    ]
+  }
+}

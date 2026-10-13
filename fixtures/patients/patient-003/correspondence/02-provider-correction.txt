@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Message ID: P003-M02
+Sent: 2026-10-05T16:08:00Z
+From: riley.demo@clinic.example
+To: orders@lab.example
+Subject: Re: CASE-003 panel missing
+Case ID: CASE-003
+Attached is the corrected signed requisition, revision 2. It replaces revision 1. Please use DEMO-A; the original omitted the panel.
+Attachments: documents/02-requisition-corrected.txt

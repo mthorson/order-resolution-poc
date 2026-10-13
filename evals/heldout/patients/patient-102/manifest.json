@@ -1,0 +1,8 @@
+{
+  "synthetic": true,
+  "patient_id": "SYN-102",
+  "case_id": "CASE-102",
+  "files": [
+    "documents/01-requisition.txt"
+  ]
+}

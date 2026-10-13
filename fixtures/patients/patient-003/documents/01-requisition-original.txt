@@ -1,0 +1,15 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P003-D01
+Created: 2026-10-02T21:16:00Z
+Revision: 1
+Patient ID: SYN-003
+Patient name: Casey Example
+Date of birth: 1978-11-03
+Case ID: CASE-003
+Ordering provider: Dr. Riley Demo
+Clinic: Example Clinic West
+Requested panel: [blank]
+Specimen type: Blood
+Collection date: 2026-10-02
+Provider signature: Dr. Riley Demo, signed 2026-10-02

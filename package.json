@@ -1,0 +1,39 @@
+{
+  "name": "order-resolution-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "scripts": {
+    "load-case": "node src/load-case-cli.ts",
+    "analyze-case": "node src/analyze-case-cli.ts",
+    "evaluate": "node src/evaluate-cli.ts",
+    "review-case": "node src/review-case-cli.ts",
+    "ui": "node src/ui-cli.ts",
+    "serve": "node src/serve-cli.ts",
+    "build:ui": "vite build",
+    "test:ui": "playwright test",
+    "check": "tsc --noEmit",
+    "test": "node --test --test-concurrency=1 tests/*.test.ts",
+    "maintain": "node src/maintenance-cli.ts",
+    "verify:records": "node scripts/verify-records.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1149.0",
+    "openid-client": "^6.8.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.7"
+  }
+}

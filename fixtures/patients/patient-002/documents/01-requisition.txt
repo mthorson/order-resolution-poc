@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P002-D01
+Created: 2026-10-02T15:38:00Z
+Patient ID: SYN-002
+Patient name: Blair Example
+Date of birth: 1990-06-22
+Case ID: CASE-002
+Ordering provider: Dr. Jordan Demo
+Clinic: Example Clinic East
+Requested panel: DEMO-B
+Specimen type: Saliva
+Collection date: [blank]
+Provider signature: [blank]

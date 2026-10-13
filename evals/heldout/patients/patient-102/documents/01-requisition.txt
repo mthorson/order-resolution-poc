@@ -1,0 +1,15 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: H102-D01
+Created: 2026-10-07T16:27:00Z
+Case ID: CASE-102
+Patient ID: SYN-102
+Patient name: Gray Example
+Date of birth: 1975-02-01
+Ordering provider: Dr. Quinn Demo
+Clinic: Example Clinic West
+Requested panel: DEMO-A
+Specimen type: Blood
+Collection date: [blank]
+Provider signature: Dr. Quinn Demo, signed 2026-10-07
+Collection clarification: The specimen collection date was 2026-10-06; the courier pickup was 2026-10-07.

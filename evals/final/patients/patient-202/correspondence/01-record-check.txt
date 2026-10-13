@@ -1,0 +1,8 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Message ID: F202-M01
+Sent: 2026-10-12T15:38:00Z
+Case ID: CASE-202
+Patient ID: SYN-202
+From: rowan.demo@clinic.example
+Our specimen register has birth date 1980-07-24 for this person. This disagrees with the order. We haven't checked an authoritative record or sent a replacement requisition.

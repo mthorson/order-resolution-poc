@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "2bd2fc11-84bc-478d-a885-9ded81d04ac1",
+    "caseId": "CASE-003",
+    "snapshotId": "329abedcb27cbd6189006051dcf3b1ce3dc923a91665cffd6fde934fd3f7a553",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:28:05.350Z",
+    "durationMs": 4785,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6728,
+      "outputTokens": 1493
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-003",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Patient ID: SYN-003"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Casey Example",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Patient name: Casey Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1978-11-03",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Date of birth: 1978-11-03"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-003",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Case ID: CASE-003"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Riley Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Ordering provider: Dr. Riley Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic West",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Clinic: Example Clinic West"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-A",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Requested panel: DEMO-A"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-02",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Collection date: 2026-10-02"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Riley Demo, signed 2026-10-05",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Provider signature: Dr. Riley Demo, signed 2026-10-05"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "corrections": [
+    {
+      "field": "requested_panel",
+      "originalSourceId": "documents/01-requisition-original.txt",
+      "replacementSourceId": "documents/02-requisition-corrected.txt",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Supersedes: P003-D01"
+        },
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Requested panel: DEMO-A"
+        }
+      ]
+    }
+  ],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-information-request.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-information-request.txt",
+          "quote": "Case ID: CASE-003"
+        }
+      ]
+    },
+    {
+      "sourceId": "correspondence/02-provider-correction.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/02-provider-correction.txt",
+          "quote": "Case ID: CASE-003"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition-original.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition-original.txt",
+          "quote": "Case ID: CASE-003"
+        },
+        {
+          "sourceId": "documents/01-requisition-original.txt",
+          "quote": "Patient ID: SYN-003"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/02-requisition-corrected.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Case ID: CASE-003"
+        },
+        {
+          "sourceId": "documents/02-requisition-corrected.txt",
+          "quote": "Patient ID: SYN-003"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": null,
+  "status": "ready_for_review",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

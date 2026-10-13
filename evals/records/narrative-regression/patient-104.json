@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analysis_failed",
+  "run": {
+    "runId": "a3f872b1-117d-46fc-9cab-07c24cbf2681",
+    "caseId": "CASE-104",
+    "snapshotId": "9252d2cb5dc9e4fcb7d30aeb1f1cfcbddddfdcb792b04c58df91cc7da4b6d4ff",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:35:59.407Z",
+    "durationMs": 6039,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6065,
+      "outputTokens": 1488
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "error": {
+    "code": "invalid_output",
+    "message": "Model proposal failed runtime schema checks",
+    "sourceIds": []
+  },
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

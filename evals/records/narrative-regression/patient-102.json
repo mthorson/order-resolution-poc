@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "899771c9-7a71-46d5-9da4-97fcffca62a1",
+    "caseId": "CASE-102",
+    "snapshotId": "5a98b2b805716ff6ec936f07ff8fcc1b2ff712ff38c6aa54316fda2416e7d79a",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:35:50.797Z",
+    "durationMs": 3460,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 5838,
+      "outputTokens": 992
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-102",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-102"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Gray Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Gray Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1975-02-01",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1975-02-01"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-102",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-102"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Quinn Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Quinn Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic West",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic West"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-A",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-A"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-06",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "The specimen collection date was 2026-10-06"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Quinn Demo, signed 2026-10-07",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Quinn Demo, signed 2026-10-07"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-102"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-102"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": null,
+  "status": "ready_for_review",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

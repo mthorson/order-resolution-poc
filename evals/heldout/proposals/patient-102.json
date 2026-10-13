@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "model-proposal.v1",
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-102",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-102"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Gray Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Gray Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1975-02-01",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1975-02-01"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-102",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-102"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Quinn Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Quinn Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic West",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic West"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-A",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-A"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-06",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "The specimen collection date was 2026-10-06; the courier pickup was 2026-10-07."
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Quinn Demo, signed 2026-10-07",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Quinn Demo, signed 2026-10-07"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "corrections": [],
+  "warnings": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-102"
+        }
+      ]
+    }
+  ],
+  "followUpDraft": null
+}

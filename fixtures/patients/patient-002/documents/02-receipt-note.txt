@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P002-D02
+Created: 2026-10-02T18:47:00Z
+Case ID: CASE-002
+Patient ID: SYN-002
+Package received: 2026-10-02
+Specimen type: Saliva
+Collection date: Not supplied by sender
+This is a shipping receipt, not a signed order.

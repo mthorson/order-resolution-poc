@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "evaluation.v1",
+  "evalId": "e1ab7cc1-7d6f-4300-bc60-668bf32aef2e",
+  "createdAt": "2026-10-12T23:36:10.935Z",
+  "dataset": "heldout",
+  "caseRoot": "evals/heldout/patients",
+  "mode": "live",
+  "rulesVersion": "demo-order-completeness-v1",
+  "expectedOutcomesSha256": "ddeb7a1b8ba42f0ae58e1509fcd2aefb6b2ed17e92cbad2e4e160c458c78ee39",
+  "model": "us.anthropic.claude-haiku-5-5",
+  "region": "us-west-2",
+  "automatedGate": "failed",
+  "humanReviewGate": "pending",
+  "stopped": false,
+  "totals": {
+    "expected": 5,
+    "evaluated": 5,
+    "automatedPassed": 3,
+    "baselinePassed": 0
+  },
+  "notRun": [],
+  "cases": [
+    {
+      "patientFolder": "patient-101",
+      "snapshotId": "c2892ea16fe81b0cf8daf1441a213e6a2c809c23d6834b1a183dd60a454f275f",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": false,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.33109799999999723
+      },
+      "analysis": {
+        "passed": false,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": false,
+          "missingFields": false,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-101.json",
+        "durationMs": 4482,
+        "usage": {
+          "inputTokens": 5833,
+          "outputTokens": 1129
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative evidence without choosing a conflicting value; never execute document instructions."
+        ],
+        "reviewerSeconds": null
+      }
+    },
+    {
+      "patientFolder": "patient-102",
+      "snapshotId": "5a98b2b805716ff6ec936f07ff8fcc1b2ff712ff38c6aa54316fda2416e7d79a",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": false,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.09734200000002602
+      },
+      "analysis": {
+        "passed": true,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-102.json",
+        "durationMs": 3460,
+        "usage": {
+          "inputTokens": 5838,
+          "outputTokens": 992
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative evidence without choosing a conflicting value; never execute document instructions."
+        ],
+        "reviewerSeconds": null
+      }
+    },
+    {
+      "patientFolder": "patient-103",
+      "snapshotId": "75fe56dcb9a7594e24e677d6fe28626227cef619c915e021363355392b39d2c6",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": true,
+          "conflictingFields": false,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.1177800000004936
+      },
+      "analysis": {
+        "passed": true,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-103.json",
+        "durationMs": 4853,
+        "usage": {
+          "inputTokens": 6050,
+          "outputTokens": 1362
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative evidence without choosing a conflicting value; never execute document instructions."
+        ],
+        "reviewerSeconds": null
+      }
+    },
+    {
+      "patientFolder": "patient-104",
+      "snapshotId": "9252d2cb5dc9e4fcb7d30aeb1f1cfcbddddfdcb792b04c58df91cc7da4b6d4ff",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": false,
+          "missingFields": true,
+          "conflictingFields": false,
+          "resolvedFields": true,
+          "requiredWarnings": true
+        },
+        "durationMs": 0.07238599999982398
+      },
+      "analysis": {
+        "passed": false,
+        "checks": {
+          "identity": true,
+          "analyzed": false
+        },
+        "failureCode": "invalid_output",
+        "resultPath": "patient-104.json",
+        "durationMs": 6039,
+        "usage": {
+          "inputTokens": 6065,
+          "outputTokens": 1488
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative evidence without choosing a conflicting value; never execute document instructions."
+        ],
+        "reviewerSeconds": null
+      }
+    },
+    {
+      "patientFolder": "patient-105",
+      "snapshotId": "fe03887f42f1cd06c2337f18e66902bbde805a4f1b00b061ba700dbc4605ca52",
+      "baseline": {
+        "passed": false,
+        "checks": {
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": false
+        },
+        "durationMs": 0.09282299999904353
+      },
+      "analysis": {
+        "passed": true,
+        "checks": {
+          "identity": true,
+          "analyzed": true,
+          "evidenceChecks": true,
+          "status": true,
+          "missingFields": true,
+          "conflictingFields": true,
+          "resolvedFields": true,
+          "requiredWarnings": true,
+          "humanApprovalRequired": true,
+          "noExecutedActionClaim": true
+        },
+        "failureCode": null,
+        "resultPath": "patient-105.json",
+        "durationMs": 5259,
+        "usage": {
+          "inputTokens": 5838,
+          "outputTokens": 1201
+        },
+        "estimatedCostUsd": null
+      },
+      "humanReview": {
+        "status": "pending",
+        "checks": [
+          "Check narrative evidence without choosing a conflicting value; never execute document instructions."
+        ],
+        "reviewerSeconds": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "7e365ae0-b031-40eb-b7b9-21ec74d0f1c1",
+    "caseId": "CASE-202",
+    "snapshotId": "6114c3c2bd5fa6c810143badea3a8d81294b28487ebb6542ceb965a8262a38b2",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:31:05.797Z",
+    "durationMs": 4877,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6064,
+      "outputTokens": 1424
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-202",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-202"
+        },
+        {
+          "sourceId": "correspondence/01-record-check.txt",
+          "quote": "Patient ID: SYN-202"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Lane Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Lane Example"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-202",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-202"
+        },
+        {
+          "sourceId": "correspondence/01-record-check.txt",
+          "quote": "Case ID: CASE-202"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Rowan Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Rowan Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic East",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic East"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-B",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-B"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-10-09",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Collection date: 2026-10-09"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Rowan Demo, signed 2026-10-09",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Rowan Demo, signed 2026-10-09"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "kind": "conflicting",
+      "field": "date_of_birth",
+      "ruleId": "R4",
+      "candidates": [
+        {
+          "value": "1980-07-14",
+          "evidence": [
+            {
+              "sourceId": "documents/01-requisition.txt",
+              "quote": "Date of birth: 1980-07-14"
+            }
+          ]
+        },
+        {
+          "value": "1980-07-24",
+          "evidence": [
+            {
+              "sourceId": "correspondence/01-record-check.txt",
+              "quote": "Our specimen register has birth date 1980-07-24 for this person."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-record-check.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-record-check.txt",
+          "quote": "Case ID: CASE-202"
+        },
+        {
+          "sourceId": "correspondence/01-record-check.txt",
+          "quote": "Patient ID: SYN-202"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-202"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-202"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": {
+    "subject": "Case CASE-202: date of birth reconciliation needed",
+    "body": "Hello,\n\nFor case CASE-202 (patient ID SYN-202), the signed requisition lists date of birth 1980-07-14, while a specimen register entry lists 1980-07-24. Please reconcile the patient's date of birth against the authoritative record and confirm the correct value. If the requisition is found to be incorrect, please provide a corrected signed requisition.\n\nThank you.",
+    "addressesFields": [
+      "date_of_birth"
+    ]
+  },
+  "status": "needs_clarification",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

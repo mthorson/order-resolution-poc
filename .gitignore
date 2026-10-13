@@ -1,0 +1,9 @@
+node_modules/
+runs/
+.case-run.lock/
+.env
+.env.*
+config/access.local.json
+dist/
+playwright-report/
+test-results/

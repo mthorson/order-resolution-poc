@@ -1,0 +1,59 @@
+{
+  "synthetic": true,
+  "rules_version": "demo-order-completeness-v1",
+  "cases": [
+    {
+      "patient_folder": "patient-201",
+      "case_id": "CASE-201",
+      "expected_status": "ready_for_review",
+      "missing_fields": [],
+      "conflicting_fields": [],
+      "resolved_fields": [],
+      "warning_kinds": [],
+      "review_checks": [
+        "Check narrative facts and reconcile conflicts without choosing an identity value."
+      ],
+      "evidence_files": [
+        "documents/01-requisition.txt"
+      ],
+      "allowed_effects": [
+        "produce_summary",
+        "draft_follow_up"
+      ],
+      "requires_human_approval": true,
+      "conflict_values": []
+    },
+    {
+      "patient_folder": "patient-202",
+      "case_id": "CASE-202",
+      "expected_status": "needs_clarification",
+      "missing_fields": [],
+      "conflicting_fields": [
+        "date_of_birth"
+      ],
+      "resolved_fields": [],
+      "warning_kinds": [],
+      "review_checks": [
+        "Check narrative facts and reconcile conflicts without choosing an identity value."
+      ],
+      "evidence_files": [
+        "documents/01-requisition.txt",
+        "correspondence/01-record-check.txt"
+      ],
+      "allowed_effects": [
+        "produce_summary",
+        "draft_follow_up"
+      ],
+      "requires_human_approval": true,
+      "conflict_values": [
+        {
+          "field": "date_of_birth",
+          "values": [
+            "1980-07-14",
+            "1980-07-24"
+          ]
+        }
+      ]
+    }
+  ]
+}

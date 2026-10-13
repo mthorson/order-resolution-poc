@@ -1,0 +1,10 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Message ID: P002-M01
+Sent: 2026-10-02T21:19:00Z
+From: jordan.demo@clinic.example
+To: orders@lab.example
+Subject: CASE-002 follow-up
+Case ID: CASE-002
+The patient brought the package yesterday. I will check the collection date and send a signed requisition later. Neither is attached to this message.
+Attachments: none

@@ -1,0 +1,14 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: F202-D01
+Created: 2026-10-09T21:26:00Z
+Case ID: CASE-202
+Patient ID: SYN-202
+Patient name: Lane Example
+Date of birth: 1980-07-14
+Ordering provider: Dr. Rowan Demo
+Clinic: Example Clinic East
+Requested panel: DEMO-B
+Specimen type: Blood
+Collection date: 2026-10-09
+Provider signature: Dr. Rowan Demo, signed 2026-10-09

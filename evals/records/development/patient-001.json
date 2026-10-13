@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "2d572404-ea50-468c-b903-cc1143393dfc",
+    "caseId": "CASE-001",
+    "snapshotId": "800aab512738a832b79b6dcb7235d4594c1bf386d1eef1b208b07d441e4b0d36",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:27:55.402Z",
+    "durationMs": 5067,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6340,
+      "outputTokens": 1378
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-001",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-001"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Patient ID: SYN-001"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Alex Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Alex Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1985-02-14",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1985-02-14"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Date of birth: 1985-02-14"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-001",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-001"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Case ID: CASE-001"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Morgan Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Morgan Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic North",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic North"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-A",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-A"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Blood",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Blood"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Specimen type: Blood"
+        }
+      ]
+    },
+    {
+      "field": "collection_date",
+      "value": "2026-09-30",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Collection date: 2026-09-30"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Collection date: 2026-09-30"
+        }
+      ]
+    },
+    {
+      "field": "provider_signature",
+      "value": "Dr. Morgan Demo, signed 2026-10-01",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Provider signature: Dr. Morgan Demo, signed 2026-10-01"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-provider-message.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-provider-message.txt",
+          "quote": "Case ID: CASE-001"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-001"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-001"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/02-specimen-record.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Case ID: CASE-001"
+        },
+        {
+          "sourceId": "documents/02-specimen-record.txt",
+          "quote": "Patient ID: SYN-001"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": null,
+  "status": "ready_for_review",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

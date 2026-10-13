@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "case-analysis.v1",
+  "outcome": "analyzed",
+  "run": {
+    "runId": "19c12c17-abeb-4a4a-8a34-9ba793513fc4",
+    "caseId": "CASE-002",
+    "snapshotId": "2e860e62d8a1bbef1df14fd24c3d88cc36c5967a8124dce0e1a7928b7fe54a7e",
+    "rulesVersion": "demo-order-completeness-v1",
+    "promptVersion": "order-review-v5",
+    "validatorVersion": "proposal-and-demo-rules-v3",
+    "provider": "aws-bedrock",
+    "model": "us.anthropic.claude-haiku-5-5",
+    "startedAt": "2026-10-12T23:28:00.642Z",
+    "durationMs": 4563,
+    "modelCalls": 1,
+    "usage": {
+      "inputTokens": 6338,
+      "outputTokens": 1325
+    },
+    "estimatedCostUsd": null,
+    "costBasis": null
+  },
+  "facts": [
+    {
+      "field": "patient_id",
+      "value": "SYN-002",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-002"
+        }
+      ]
+    },
+    {
+      "field": "patient_name",
+      "value": "Blair Example",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient name: Blair Example"
+        }
+      ]
+    },
+    {
+      "field": "date_of_birth",
+      "value": "1990-06-22",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Date of birth: 1990-06-22"
+        }
+      ]
+    },
+    {
+      "field": "case_id",
+      "value": "CASE-002",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    },
+    {
+      "field": "ordering_provider",
+      "value": "Dr. Jordan Demo",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Ordering provider: Dr. Jordan Demo"
+        }
+      ]
+    },
+    {
+      "field": "clinic",
+      "value": "Example Clinic East",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Clinic: Example Clinic East"
+        }
+      ]
+    },
+    {
+      "field": "requested_panel",
+      "value": "DEMO-B",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Requested panel: DEMO-B"
+        }
+      ]
+    },
+    {
+      "field": "specimen_type",
+      "value": "Saliva",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Specimen type: Saliva"
+        },
+        {
+          "sourceId": "documents/02-receipt-note.txt",
+          "quote": "Specimen type: Saliva"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "kind": "missing",
+      "field": "collection_date",
+      "ruleId": "R2",
+      "examinedSourceIds": [
+        "correspondence/01-provider-message.txt",
+        "documents/01-requisition.txt",
+        "documents/02-receipt-note.txt"
+      ]
+    },
+    {
+      "kind": "missing",
+      "field": "provider_signature",
+      "ruleId": "R1",
+      "examinedSourceIds": [
+        "correspondence/01-provider-message.txt",
+        "documents/01-requisition.txt",
+        "documents/02-receipt-note.txt"
+      ]
+    }
+  ],
+  "corrections": [],
+  "sourceAssessments": [
+    {
+      "sourceId": "correspondence/01-provider-message.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "correspondence/01-provider-message.txt",
+          "quote": "Case ID: CASE-002"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/01-requisition.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Case ID: CASE-002"
+        },
+        {
+          "sourceId": "documents/01-requisition.txt",
+          "quote": "Patient ID: SYN-002"
+        }
+      ]
+    },
+    {
+      "sourceId": "documents/02-receipt-note.txt",
+      "disposition": "included",
+      "reason": "Matching case headers",
+      "evidence": [
+        {
+          "sourceId": "documents/02-receipt-note.txt",
+          "quote": "Case ID: CASE-002"
+        },
+        {
+          "sourceId": "documents/02-receipt-note.txt",
+          "quote": "Patient ID: SYN-002"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "followUpDraft": {
+    "subject": "CASE-002 requisition: missing collection date and provider signature",
+    "body": "Hello,\n\nFor case CASE-002 (patient ID SYN-002), the requisition P002-D01 is missing two required items: the collection date and the provider signature. Please send a completed and signed requisition that includes the specimen collection date. No other fields are requested in this message.\n\nThank you.",
+    "addressesFields": [
+      "collection_date",
+      "provider_signature"
+    ]
+  },
+  "status": "needs_information",
+  "requiresHumanApproval": true,
+  "actionState": "not_executed"
+}

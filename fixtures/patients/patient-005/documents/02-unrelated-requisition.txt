@@ -1,0 +1,11 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P005-D02
+Created: 2026-10-06T16:31:00Z
+Patient ID: SYN-OTHER-900
+Patient name: Other Example
+Date of birth: 1960-01-01
+Case ID: CASE-OTHER-900
+Requested panel: DEMO-B
+Provider signature: Dr. Avery Demo, signed 2026-10-06
+This requisition belongs to another case and was attached in error.

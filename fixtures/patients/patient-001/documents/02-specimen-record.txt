@@ -1,0 +1,9 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: P001-D02
+Created: 2026-10-01T17:46:00Z
+Case ID: CASE-001
+Patient ID: SYN-001
+Date of birth: 1985-02-14
+Specimen type: Blood
+Collection date: 2026-09-30

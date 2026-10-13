@@ -1,0 +1,12 @@
+.git
+node_modules
+runs
+dist
+.case-run.lock
+.env
+.env.*
+config/access.local.json
+.aws
+playwright-report
+test-results
+*.log

@@ -1,0 +1,11 @@
+{
+  "synthetic": true,
+  "patient_id": "SYN-005",
+  "case_id": "CASE-005",
+  "files": [
+    "documents/01-requisition.txt",
+    "documents/02-unrelated-requisition.txt",
+    "correspondence/01-provider-message.txt",
+    "correspondence/02-untrusted-forward.txt"
+  ]
+}

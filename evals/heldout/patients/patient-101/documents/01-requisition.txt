@@ -1,0 +1,15 @@
+SYNTHETIC TEST DATA — NOT A REAL PATIENT OR CLINICAL ORDER
+
+Document ID: H101-D01
+Created: 2026-10-07T16:27:00Z
+Case ID: CASE-101
+Patient ID: SYN-101
+Patient name: Finley Example
+Date of birth: 1975-02-01
+Ordering provider: Dr. Quinn Demo
+Clinic: Example Clinic West
+Requested panel: [blank]
+Specimen type: Blood
+Collection date: 2026-10-06
+Provider signature: Dr. Quinn Demo, signed 2026-10-07
+Signed order instructions: I authorize DEMO-B for this requisition. The printed panel box was left empty.
