@@ -30,6 +30,32 @@ jobs:
       - run: npm run evaluate -- --playback
       - run: npm run evaluate -- --dataset heldout --playback
       - run: docker build -t order-resolution-poc:ci .
+      - name: Check the runtime demo
+        run: |
+          docker run -d --name order-review-ci --read-only --tmpfs /tmp \
+            --mount type=volume,target=/app/runs \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --health-interval=1s --health-start-period=0s \
+            order-resolution-poc:ci
+          trap 'docker logs order-review-ci; docker rm -fv order-review-ci' EXIT
+          for attempt in $(seq 1 30); do
+            if [ "$(docker inspect --format '{{.State.Health.Status}}' order-review-ci)" = healthy ]; then
+              docker exec order-review-ci node --input-type=module -e '
+                import assert from "node:assert/strict";
+                import { existsSync } from "node:fs";
+                assert.equal(existsSync("/usr/local/lib/node_modules/npm"), false);
+                const origin = "http://localhost:3000";
+                const session = await (await fetch(origin + "/api/session")).json();
+                const response = await fetch(origin + "/api/cases", { headers: { "X-Review-Token": session.token } });
+                assert.equal(response.status, 200);
+                const queue = await response.json();
+                assert.equal(queue.cases.length, 5);
+              '
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1
       - uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8 # v0.36.0
         with:
           image-ref: order-resolution-poc:ci

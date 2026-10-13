@@ -15,7 +15,10 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 FROM node:26.11.1-trixie-slim AS runtime
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+# Package tooling is needed only in the build/dependency stages.
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules /opt/yarn* \
+  && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/corepack
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules

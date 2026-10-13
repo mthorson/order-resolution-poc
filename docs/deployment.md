@@ -55,6 +55,7 @@ docker run --rm --name order-review-demo \
 ## Runtime security
 
 - Non-root, read-only root, dropped capabilities, no new privileges.
+- npm/Yarn tooling stays in build stages; the runtime starts directly with Node.
 - ECR scan: zero CRITICAL, three unfixed HIGH findings in base libraries.
 - CI blocks fixable HIGH/CRITICAL findings; it doesn't claim a vulnerability-free image.
 - Review vendor patches before any real-data release.
